@@ -1,0 +1,10 @@
+NODE_ENV =
+PORT=
+#app host name 
+HOST_NAME=
+
+DB_HOST=
+DB_PASSWORD=
+DB_PORT=
+DB_USER=
+DB_NAME=
