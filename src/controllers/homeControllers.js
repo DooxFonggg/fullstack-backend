@@ -3,7 +3,7 @@ const connection = require('../config/database');
 
 const getHomepage = (req, res) => {
 
-    res.render('home.ejs');
+    return res.render('home.ejs');
     // let users = [];
     // connection.query(
     //     'SELECT *FROM Users u ',
@@ -23,6 +23,13 @@ const getABC = (req, res) => {
 const gethoidanit = (req, res) => {
     res.render('sample.ejs')
 }
+
+const postCreateUser = (req, res) => {
+    console.log(">> req.body", req.body)
+    res.send('create a new user');
+}
+
+
 module.exports = {
-    getHomepage, getABC, gethoidanit
+    getHomepage, getABC, gethoidanit, postCreateUser
 }
