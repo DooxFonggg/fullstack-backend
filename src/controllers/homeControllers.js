@@ -1,9 +1,11 @@
 const connection = require('../config/database');
+const { getAllUsers } = require('../services/CRUDservices');
 
+const getHomepage = async (req, res) => {
+    // let [results, fields] = await connection.query('SELECT *FROM Users u ');
+    let results = await getAllUsers();
 
-const getHomepage = (req, res) => {
-
-    return res.render('home.ejs');
+    return res.render('home.ejs', { listUsers: results });
     // let users = [];
     // connection.query(
     //     'SELECT *FROM Users u ',
