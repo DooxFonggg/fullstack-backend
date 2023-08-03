@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { getHomepage, getABC, gethoidanit, getCreate, postCreateUser, getUpdatePage } = require('../controllers/homeControllers');
+const { getHomepage, getABC, gethoidanit, getCreate, postCreateUser, getUpdatePage, postUpdateUser } = require('../controllers/homeControllers');
 
 // khai bao roude 
 router.get('/', getHomepage);
@@ -12,6 +12,7 @@ router.get('/hoidanit', gethoidanit);
 router.get('/create', getCreate);
 router.post('/create-user', postCreateUser)
 router.get('/update/:id', getUpdatePage);
+router.post('/update-user', postUpdateUser);
 
 //export qua server
 module.exports = router;
