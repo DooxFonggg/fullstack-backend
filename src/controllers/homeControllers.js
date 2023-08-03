@@ -47,6 +47,7 @@ const postCreateUser = async (req, res) => {
 }
 
 const getUpdatePage = (req, res) => {
+    // console.log('>> check req', req.params);
     res.render('update.ejs');
 }
 
