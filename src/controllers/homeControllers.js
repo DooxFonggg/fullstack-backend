@@ -62,6 +62,15 @@ const postUpdateUser = async (req, res) => {
     await updateByID(email, name, city, id);
     res.redirect('/');
 }
+const postDeleteUser = async (req, res) => {
+    const userID = req.params.id;
+    const user = await getUserByID(userID);
+    res.render('delete.ejs', { userEdit: user });
+}
+const postHandleRemoveUser = (req, res) => {
+    res.send('You have successfully deleted your account');
+}
 module.exports = {
-    getHomepage, getABC, gethoidanit, postCreateUser, getCreate, getUpdatePage, postUpdateUser
+    getHomepage, getABC, gethoidanit, postCreateUser, getCreate,
+    getUpdatePage, postUpdateUser, postDeleteUser, postHandleRemoveUser
 }
