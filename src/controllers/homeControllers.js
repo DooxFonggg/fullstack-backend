@@ -1,5 +1,5 @@
 const connection = require('../config/database');
-const { getAllUsers, getUserByID, updateByID } = require('../services/CRUDservices');
+const { getAllUsers, getUserByID, updateByID, deleteUserByID } = require('../services/CRUDservices');
 
 const getHomepage = async (req, res) => {
     // let [results, fields] = await connection.query('SELECT *FROM Users u ');
@@ -67,8 +67,11 @@ const postDeleteUser = async (req, res) => {
     const user = await getUserByID(userID);
     res.render('delete.ejs', { userEdit: user });
 }
-const postHandleRemoveUser = (req, res) => {
-    res.send('You have successfully deleted your account');
+const postHandleRemoveUser = async (req, res) => {
+    const userID = req.body.id;
+    // console.log('>> check id', userID)
+    await deleteUserByID(userID);
+    res.redirect('/');
 }
 module.exports = {
     getHomepage, getABC, gethoidanit, postCreateUser, getCreate,
