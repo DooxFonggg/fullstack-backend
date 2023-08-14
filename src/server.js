@@ -6,7 +6,7 @@ const webRoute = require('./routes/web');
 //console.log(">>> check env: ", process.env);
 const connection = require('./config/database');
 // get the client
-const mysql = require('mysql2')
+// const mysql = require('mysql2')
 
 
 
@@ -24,16 +24,8 @@ configviewEngine(app);
 //khai bao route
 app.use('/', webRoute);
 
-
-
-// simple query
-// connection.query(
-//     'SELECT *FROM Users u',
-//     function (err, results, fields) {
-//         console.log('>> results', results); // results contains rows returned by server
-
-//     }
-// );
+// connetion data mongoose
+connection();
 
 app.listen(port, hostname, () => {
     console.log(`Example app listening on port ${port}`)
