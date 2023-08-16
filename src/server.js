@@ -6,7 +6,8 @@ const webRoute = require('./routes/web');
 //console.log(">>> check env: ", process.env);
 const connection = require('./config/database');
 // get the client
-// const mysql = require('mysql2')
+// const mongoose = require('mongoose');
+const Kitten = require('./models/kitten');
 
 
 
@@ -24,9 +25,22 @@ configviewEngine(app);
 //khai bao route
 app.use('/', webRoute);
 
-// connetion data mongoose
-connection();
+// tạo database bằng moongoose
 
-app.listen(port, hostname, () => {
-    console.log(`Example app listening on port ${port}`)
-})
+const cat = new Kitten({ name: 'Do Hoang Phong' });
+cat.save();
+
+// connetion data mongoose
+
+// self running funtion
+(async () => {
+    try {
+        await connection();
+        app.listen(port, hostname, () => {
+            console.log(`Example app listening on port ${port}`)
+        })
+    } catch (error) {
+        console.log('>> check error', error);
+    }
+})()
+
