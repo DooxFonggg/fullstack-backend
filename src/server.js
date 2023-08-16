@@ -7,7 +7,7 @@ const webRoute = require('./routes/web');
 const connection = require('./config/database');
 // get the client
 // const mongoose = require('mongoose');
-const Kitten = require('./models/kitten');
+const User = require('./models/user');
 
 
 
@@ -25,12 +25,7 @@ configviewEngine(app);
 //khai bao route
 app.use('/', webRoute);
 
-// tạo database bằng moongoose
 
-const cat = new Kitten({ name: 'Do Hoang Phong' });
-cat.save();
-
-// connetion data mongoose
 
 // self running funtion
 (async () => {
