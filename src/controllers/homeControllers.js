@@ -1,6 +1,8 @@
 const connection = require('../config/database');
 const { getAllUsers, getUserByID, updateByID, deleteUserByID } = require('../services/CRUDservices');
 const User = require('../models/user');
+
+
 const getHomepage = async (req, res) => {
     let results = await User.find({});
     return res.render('home.ejs', { listUsers: results });
@@ -34,19 +36,17 @@ const postCreateUser = async (req, res) => {
 }
 
 const getUpdatePage = async (req, res) => {
-    // console.log('>> check req', req.params);
     const userID = req.params.id;
-    const user = await getUserByID(userID);
-    // console.log('>> check res', results)
-    // let user = results && results.length > 0 ? results[0] : {}
+    const user = await User.findByIdAndUpdate(userID);;
     res.render('update.ejs', { userEdit: user });
 }
 const postUpdateUser = async (req, res) => {
-    let id = req.body.id;
     let email = req.body.email;
     let name = req.body.name;
     let city = req.body.city;
-    await updateByID(email, name, city, id);
+    let id = req.body.id;
+    // await updateByID(email, name, city, id);
+    await User.findOneAndUpdate({ _id: id }, { email: email, name: name, city: city }, { new: true });
     res.redirect('/');
 }
 const postDeleteUser = async (req, res) => {
