@@ -2,7 +2,7 @@ const connection = require('../config/database');
 const { getAllUsers, getUserByID, updateByID, deleteUserByID } = require('../services/CRUDservices');
 const User = require('../models/user');
 const getHomepage = async (req, res) => {
-    let results = [];
+    let results = await User.find({});
     return res.render('home.ejs', { listUsers: results });
 
 }
