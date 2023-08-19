@@ -37,7 +37,7 @@ const postCreateUser = async (req, res) => {
 
 const getUpdatePage = async (req, res) => {
     const userID = req.params.id;
-    const user = await User.findByIdAndUpdate(userID);;
+    const user = await User.findByIdAndUpdate(userID);
     res.render('update.ejs', { userEdit: user });
 }
 const postUpdateUser = async (req, res) => {
@@ -51,13 +51,13 @@ const postUpdateUser = async (req, res) => {
 }
 const postDeleteUser = async (req, res) => {
     const userID = req.params.id;
-    const user = await getUserByID(userID);
+    const user = await User.findByIdAndUpdate(userID);;
     res.render('delete.ejs', { userEdit: user });
 }
 const postHandleRemoveUser = async (req, res) => {
     const userID = req.body.id;
-    // console.log('>> check id', userID)
-    await deleteUserByID(userID);
+
+    await User.findByIdAndDelete(userID);
     res.redirect('/');
 }
 module.exports = {
