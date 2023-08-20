@@ -54,12 +54,14 @@ const postDeleteUser = async (req, res) => {
     const user = await User.findByIdAndUpdate(userID);;
     res.render('delete.ejs', { userEdit: user });
 }
+
 const postHandleRemoveUser = async (req, res) => {
     const userID = req.body.id;
 
     await User.findByIdAndDelete(userID);
     res.redirect('/');
 }
+
 module.exports = {
     getHomepage, getABC, gethoidanit, postCreateUser, getCreate,
     getUpdatePage, postUpdateUser, postDeleteUser, postHandleRemoveUser
