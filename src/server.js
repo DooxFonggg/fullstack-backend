@@ -6,6 +6,7 @@ const webRoute = require('./routes/web');
 const routeAPI = require('./routes/api');
 //console.log(">>> check env: ", process.env);
 const connection = require('./config/database');
+const fileUpload = require('express-fileupload');
 // get the client
 // const mongoose = require('mongoose');
 const User = require('./models/user');
@@ -15,6 +16,9 @@ const User = require('./models/user');
 const app = express();
 const port = process.env.PORT || 8888;
 const hostname = process.env.HOST_NAME;
+
+// default options
+app.use(fileUpload());
 
 // cofig req.body
 app.use(express.json()); //utilizes the body-parser package
