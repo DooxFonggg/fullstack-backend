@@ -1,9 +1,11 @@
+
 const path = require('path');
 
 const uploadSingleFile = async (fileObject) => {
     //fileObject = req.files.image (với image được đặt tên model)
     //uploadPath = tên 
     const originalFileName = path.parse(fileObject.name).name;// hoidanit.ing => hoidanit 
+
     // Get the file extension
     const fileExtension = path.extname(fileObject.name); // láy ra '.ing'
     const timestamp = Date.now();
