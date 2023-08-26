@@ -1,7 +1,8 @@
 
 const { uploadSingleFile } = require("../services/fileServices");
-const { createCustomerService, createArrayCustomerService, getCustomers } = require('../services/customerServices')
+const { createCustomerService, createArrayCustomerService, getCustomers, putUpdateCustomerService } = require('../services/customerServices')
 
+// thêm 
 const postCreateCustomer = async (req, res) => {
     // b1: lấy thông tin từ html
     let { name, address, phone, email, description } = req.body;
@@ -65,6 +66,24 @@ const getAllCustomer = async (req, res) => {
         })
     }
 }
+
+const putUpdateCustomer = async (req, res) => {
+    let { id, name, email, address } = req.body;
+    console.log('>> check id', id);
+    let result = await putUpdateCustomerService(id, name, email, address);// .customer được chỉ đạt trên posman
+    if (result) {
+        return res.status(200).json({
+            EC: 0,
+            data: result
+        })
+    }
+    else {
+        return res.status(200).json({
+            EC: -1,
+            data: result
+        })
+    }
+}
 module.exports = {
-    postCreateCustomer, postArrayCreateCustomer, getAllCustomer
+    postCreateCustomer, postArrayCreateCustomer, getAllCustomer, putUpdateCustomer
 }

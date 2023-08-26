@@ -82,5 +82,4 @@ const uploadMultipleFiles = async (filesArr) => {
 
 }
 
-
 module.exports = { uploadSingleFile, uploadMultipleFiles }

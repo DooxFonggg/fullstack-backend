@@ -27,20 +27,27 @@ const createArrayCustomerService = async (arr) => {
     }
 }
 
-const getCustomers = async (arr) => {
+const getCustomers = async () => {
     try {
-        let Customers = await customer.find(arr);// truy vấn tất cả table db
-        let customerMap = {};
-        Customers.forEach((customer) => {
-            customerMap[customer._id] = customer;
-        })
-        return customerMap;
+        let result = await customer.find({});// truy vấn tất cả table db
+        return result;
     } catch (error) {
         console.log('>> check error:', error);
         return null;
     }
 }
+// sửa customer
+const putUpdateCustomerService = async (id, name, email, address) => {
+    try {
+        const Customer = await customer.updateOne({ _id: id }, { name, email, address });
+        return Customer;
+    } catch (error) {
+        console.log("check error", error);
+        return null;
+    }
+}
 
 module.exports = {
-    createCustomerService, createArrayCustomerService, getCustomers
+    createCustomerService, createArrayCustomerService, getCustomers,
+    putUpdateCustomerService
 }
