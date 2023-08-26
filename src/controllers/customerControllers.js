@@ -1,8 +1,9 @@
 
 const { uploadSingleFile } = require("../services/fileServices");
-const { createCustomerService } = require('../services/customerServices')
+const { createCustomerService, createArrayCustomerService } = require('../services/customerServices')
+
 const postCreateCustomer = async (req, res) => {
-    // b1: lấy thông tin
+    // b1: lấy thông tin từ html
     let { name, address, phone, email, description } = req.body;
     let imageURL = "";
     if (!req.files || Object.keys(req.files).length === 0) {
@@ -32,6 +33,22 @@ const postCreateCustomer = async (req, res) => {
     })
 }
 
+const postArrayCreateCustomer = async (req, res) => {
+    let Customers = await createArrayCustomerService(req.body.customers);// req.body.customers với .customers là key đặt trong posman
+    console.log('>> check customer', req.body.customers);
+    if (Customers) {
+        return res.status(200).json({
+            EC: 0,
+            data: Customers
+        })
+    }
+    else {
+        return res.status(200).json({
+            EC: -1,
+            data: Customers
+        })
+    }
+}
 module.exports = {
-    postCreateCustomer
+    postCreateCustomer, postArrayCreateCustomer
 }
