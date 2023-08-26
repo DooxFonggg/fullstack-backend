@@ -26,6 +26,21 @@ const createArrayCustomerService = async (arr) => {
         return null;
     }
 }
+
+const getCustomers = async (arr) => {
+    try {
+        let Customers = await customer.find(arr);// truy vấn tất cả table db
+        let customerMap = {};
+        Customers.forEach((customer) => {
+            customerMap[customer._id] = customer;
+        })
+        return customerMap;
+    } catch (error) {
+        console.log('>> check error:', error);
+        return null;
+    }
+}
+
 module.exports = {
-    createCustomerService, createArrayCustomerService
+    createCustomerService, createArrayCustomerService, getCustomers
 }
