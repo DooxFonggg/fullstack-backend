@@ -47,7 +47,19 @@ const putUpdateCustomerService = async (id, name, email, address) => {
     }
 }
 
+const deleteACustomerService = async (id) => {
+    // thường khi xóa mongoose ODM dùng deleteOne tuy nhiên nó sẽ xóa đi dữ liệu
+    // cách làm ẩn dữ liệu đi dùng deleteBy() sau đó tại model add thêm lệnh { overrideMethods: 'all' } nhằm để ghi đè mục đích là bỏ bớt trg delete = true đồng thời giúp ta ẩn những trg bằng true đó thì người dùng xem như đã xóa
+    // mục đích sử dụng là nếu muốn khôi phục lại dữ liệu ta chỉ cần xét field delete = false thì dữ liệu sẽ lại hiện
+    try {
+        let Customer = await customer.deleteById({ _id: id });
+        return Customer;
+    } catch (error) {
+        console.log('>> check error', error);
+    }
+}
+
 module.exports = {
     createCustomerService, createArrayCustomerService, getCustomers,
-    putUpdateCustomerService
+    putUpdateCustomerService, deleteACustomerService
 }
