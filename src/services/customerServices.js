@@ -1,5 +1,5 @@
 const customer = require('../models/customer');
-
+const mongoose = require('mongoose');
 const createCustomerService = async (customerData) => {
     try {
         const result = await customer.create({
@@ -59,7 +59,17 @@ const deleteACustomerService = async (id) => {
     }
 }
 
+const deleteArrayCustomersService = async (objectId) => {
+    try {
+        let Customer = await customer.delete({ _id: objectId })
+        return Customer;
+    } catch (error) {
+        console.log('>> check error', error);
+        return null;
+    }
+}
+
 module.exports = {
     createCustomerService, createArrayCustomerService, getCustomers,
-    putUpdateCustomerService, deleteACustomerService
+    putUpdateCustomerService, deleteACustomerService, deleteArrayCustomersService
 }
