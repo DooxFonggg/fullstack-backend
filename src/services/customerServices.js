@@ -27,9 +27,17 @@ const createArrayCustomerService = async (arr) => {
     }
 }
 
-const getCustomers = async () => {
+const getCustomers = async (limit, page) => {
     try {
-        let result = await customer.find({});// truy vấn tất cả table db
+        let result = null;
+        if (limit && page) {
+            let offset = (page - 1) * limit;
+            result = await customer.find({}).skip(offset).limit(limit).exec();// exec giúp cho hàm chạy đúng thứ tự
+        }
+        else {
+            result = await customer.find({});
+        }
+        // truy vấn tất cả table db
         return result;
     } catch (error) {
         console.log('>> check error:', error);

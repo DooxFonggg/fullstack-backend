@@ -54,7 +54,18 @@ const postArrayCreateCustomer = async (req, res) => {
 }
 
 const getAllCustomer = async (req, res) => {
-    let Customers = await getCustomers();
+    console.log('>> check query', req.query);
+
+    let { limit, page } = req.query;
+    console.log('>> check query', req.query.limit);
+    let Customers = null;
+    console.log('>> limit', limit, '>> page', page);
+    if (limit && page) {
+        Customers = await getCustomers(limit, page);
+    }
+    else {
+        Customers = await getCustomers();
+    }
     if (Customers) {
         return res.status(200).json({
             EC: 0,
