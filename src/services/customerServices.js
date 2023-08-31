@@ -1,5 +1,7 @@
 const customer = require('../models/customer');
 const mongoose = require('mongoose');
+const aqp = require('api-query-params');
+
 const createCustomerService = async (customerData) => {
     try {
         const result = await customer.create({
@@ -27,12 +29,16 @@ const createArrayCustomerService = async (arr) => {
     }
 }
 
-const getCustomers = async (limit, page) => {
+const getCustomers = async (limit, page, queryString) => {
     try {
         let result = null;
         if (limit && page) {
             let offset = (page - 1) * limit;
-            result = await customer.find({}).skip(offset).limit(limit).exec();// exec giúp cho hàm chạy đúng thứ tự
+            console.log('check querystring', queryString)
+            const { filter, skip } = aqp(queryString);
+            delete filter.page;
+            console.log('>> check filter', filter);
+            result = await customer.find(filter).skip(offset).limit(limit).exec();// exec giúp cho hàm chạy đúng thứ tự
         }
         else {
             result = await customer.find({});
