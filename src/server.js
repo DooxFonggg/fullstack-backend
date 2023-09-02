@@ -45,7 +45,12 @@ const dbName = process.env.DB_NAME;
         console.log('Connected successfully to server');
 
         const db = client.db(dbName);
-        const collection = db.collection('documents');
+        const collection = db.collection('customers');// them duong di vao collection
+
+        // await collection.insertOne({ name: "fonggg" });
+
+        let a = await collection.findOne({ name: "fonggg" });
+        console.log('>> findone a =', a);
         app.listen(port, hostname, () => {
             console.log(`Example app listening on port ${port}`)
         })
