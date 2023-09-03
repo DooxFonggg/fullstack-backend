@@ -1,8 +1,13 @@
 const express = require('express');
 const routerAPI = express.Router();
+//user
 const { getUsersAPI, postCreateUserAPI, postUpdateUserAPI, deleteUserAPI, postUpLoadSingleFileAPI, postUpLoadMutipleFileAPI } = require('../controllers/apiControllers');
+//customer
 const { postCreateCustomer, postArrayCreateCustomer,
     getAllCustomer, putUpdateCustomer, deleteACustomer, deleteArrayCustomers } = require('../controllers/customerControllers');
+//projects
+const { postCreateProjectsAPI } = require('../controllers/projectControllers');
+
 // khai bao roude 
 routerAPI.get('/users', getUsersAPI);
 routerAPI.post('/users', postCreateUserAPI);
@@ -20,13 +25,14 @@ routerAPI.put('/customers', putUpdateCustomer);
 routerAPI.delete('/customers', deleteACustomer);
 routerAPI.delete('/customers-many', deleteArrayCustomers);
 
-routerAPI.get('/info', (req, res) => {
-    console.log('>> check query', req.query);
-    return res.status(200).json({
-        EC: 0,
-        data: req.query
-    })
-});
+// routerAPI.get('/info', (req, res) => {
+//     console.log('>> check query', req.query);
+//     return res.status(200).json({
+//         EC: 0,
+//         data: req.query
+//     })
+// });
 
+routerAPI.post('/projects', postCreateProjectsAPI);
 //export qua server
 module.exports = routerAPI;

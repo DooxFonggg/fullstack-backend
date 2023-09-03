@@ -4,6 +4,7 @@ const { createCustomerService, createArrayCustomerService,
     getCustomers, putUpdateCustomerService, deleteACustomerService,
     deleteArrayCustomersService } = require('../services/customerServices')
 
+
 // thêm 
 const postCreateCustomer = async (req, res) => {
     // b1: lấy thông tin từ html
