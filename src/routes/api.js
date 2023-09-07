@@ -6,7 +6,7 @@ const { getUsersAPI, postCreateUserAPI, postUpdateUserAPI, deleteUserAPI, postUp
 const { postCreateCustomer, postArrayCreateCustomer,
     getAllCustomer, putUpdateCustomer, deleteACustomer, deleteArrayCustomers } = require('../controllers/customerControllers');
 //projects
-const { postCreateProjectsAPI } = require('../controllers/projectControllers');
+const { postCreateProjectsAPI, getAllProject } = require('../controllers/projectControllers');
 
 // khai bao roude 
 routerAPI.get('/users', getUsersAPI);
@@ -34,5 +34,6 @@ routerAPI.delete('/customers-many', deleteArrayCustomers);
 // });
 
 routerAPI.post('/projects', postCreateProjectsAPI);
+routerAPI.get('/projects', getAllProject);
 //export qua server
 module.exports = routerAPI;

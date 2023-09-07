@@ -1,5 +1,5 @@
 
-const { createProjectService } = require('../services/projectServices');
+const { createProjectService, getProjects } = require('../services/projectServices');
 
 
 const postCreateProjectsAPI = async (req, res) => {
@@ -12,4 +12,29 @@ const postCreateProjectsAPI = async (req, res) => {
 
 }
 
-module.exports = { postCreateProjectsAPI };
+
+const getAllProject = async (req, res) => {
+    console.log('>> check query', req.query);
+    let Myproject = null;
+    let { limit, page } = req.query;
+    if (limit && page) {
+        Myproject = await getProjects(limit, page, req.query);
+    }
+    else {
+        Myproject = await getProjects();
+    }
+    if (Myproject) {
+        return res.status(200).json({
+            EC: 0,
+            data: Myproject
+        })
+    }
+    else {
+        return res.status(200).json({
+            EC: -1,
+            data: Myproject
+        })
+    }
+}
+
+module.exports = { postCreateProjectsAPI, getAllProject };
