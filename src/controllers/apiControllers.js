@@ -55,7 +55,6 @@ const postUpLoadSingleFileAPI = async (req, res) => {
         errorCode: 0,
         data: result
     });
-
 };
 const postUpLoadMutipleFileAPI = async (req, res) => {
     // nếu faild trả về k tải được

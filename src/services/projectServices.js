@@ -6,6 +6,7 @@ const createProjectService = async (arr) => {
         if (arr.type === "EMPTY-PROJECT") {
             let result = await project.insertMany(arr);
             console.log('>> check result:', result);
+            return result;
         }
         // them user vao du an
         if (arr.type === "ADD-USER") {
@@ -26,8 +27,21 @@ const createProjectService = async (arr) => {
             let newResult = await myProject.save();
             return newResult;
         }
+        if (arr.type === "REMOVE-USERS") {
+            let myProject1 = await project.findById(arr.projectId).exec();// tim project bang id
 
-        return result;
+
+            // duyet qua arr cua phan nhap posman
+            // Kiểm tra trùng lặp trong mảng usersInfor
+            for (let i = 0; i < arr.userId.length; i++) {
+                const userIdToDelete = arr.userId[i];
+                // Kiểm tra xem userIdToAdd đã tồn tại trong mảng usersInfor chưa
+                // Nếu userIdToDelete tồn tại trong mảng, xóa người dùng ra khỏi mảng
+                myProject1.usersInfor.splice(userIdToDelete);
+            }
+            let newResult1 = await myProject1.save();
+            return newResult1;
+        }
     } catch (error) {
         console.log('>> check err', error);
     }
@@ -55,4 +69,24 @@ const getProjects = async (limit, page, data) => {
     }
 }
 
-module.exports = { createProjectService, getProjects };
+const updateAProject = async (id, name, endDate, description) => {
+    console.log('>> check id', id);
+    try {
+        let myProject = await project.updateOne({ _id: id }, { name, endDate, description });
+        return myProject;
+    } catch (error) {
+        console.log('>> check error', error);
+        return null;
+    }
+}
+
+const deleteProject = async (id) => {
+    try {
+        let result = await project.findByIdAndDelete({ _id: id });
+        return result;
+    } catch (error) {
+        console.log('>> check error', error);
+        return null;
+    }
+}
+module.exports = { createProjectService, getProjects, updateAProject, deleteProject };
