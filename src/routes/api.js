@@ -4,9 +4,14 @@ const routerAPI = express.Router();
 const { getUsersAPI, postCreateUserAPI, postUpdateUserAPI, deleteUserAPI, postUpLoadSingleFileAPI, postUpLoadMutipleFileAPI } = require('../controllers/apiControllers');
 //customer
 const { postCreateCustomer, postArrayCreateCustomer,
-    getAllCustomer, putUpdateCustomer, deleteACustomer, deleteArrayCustomers } = require('../controllers/customerControllers');
+    getAllCustomer, putUpdateCustomer,
+    deleteACustomer, deleteArrayCustomers } = require('../controllers/customerControllers');
 //projects
-const { postCreateProjectsAPI, getAllProject, putUpdateProject, deleteAProject } = require('../controllers/projectControllers');
+const { postCreateProjectsAPI, getAllProject,
+    putUpdateProject, deleteAProject } = require('../controllers/projectControllers');
+
+// tasks
+const { postCreateTaskAPI } = require('../controllers/taskControllers');
 
 // khai bao roude 
 routerAPI.get('/users', getUsersAPI);
@@ -33,9 +38,13 @@ routerAPI.delete('/customers-many', deleteArrayCustomers);
 //     })
 // });
 
+// route Project
 routerAPI.post('/projects', postCreateProjectsAPI);
 routerAPI.get('/projects', getAllProject);
 routerAPI.put('/projects', putUpdateProject);
 routerAPI.delete('/projects', deleteAProject);
+
+// route task
+routerAPI.post('/tasks', postCreateTaskAPI);
 //export qua server
 module.exports = routerAPI;
