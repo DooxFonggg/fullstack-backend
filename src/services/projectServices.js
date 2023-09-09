@@ -47,13 +47,13 @@ const createProjectService = async (arr) => {
     }
 }
 
-const getProjects = async (limit, page, data) => {
+const getProjects = async (limit, page, queryString) => {
     try {
         let result = null;
         if (limit && page) {
             let offset = (page - 1) * limit;
-            console.log('check querystring', data)
-            const { filter, skip } = aqp(data);
+            console.log('check querystring', queryString)
+            const { filter, skip } = aqp(queryString);
             delete filter.page;
             console.log('>> check filter', filter);
             result = await project.find(filter).populate('usersInfor').skip(offset).limit(limit).exec();// exec giúp cho hàm chạy đúng thứ tự

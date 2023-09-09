@@ -11,17 +11,21 @@ const { postCreateProjectsAPI, getAllProject,
     putUpdateProject, deleteAProject } = require('../controllers/projectControllers');
 
 // tasks
-const { postCreateTaskAPI } = require('../controllers/taskControllers');
+const { postCreateTaskAPI, getAllTaskAPI, putUpdateTaskAPI, deleteATaskAPI } = require('../controllers/taskControllers');
 
 // khai bao roude 
+
+// user
 routerAPI.get('/users', getUsersAPI);
 routerAPI.post('/users', postCreateUserAPI);
 routerAPI.put('/users', postUpdateUserAPI);
 routerAPI.delete('/users', deleteUserAPI);
 
+// upload file 
 routerAPI.post('/file', postUpLoadSingleFileAPI);
 routerAPI.post('/files', postUpLoadMutipleFileAPI);
 
+// customer
 routerAPI.post('/customer', postCreateCustomer);
 
 routerAPI.post('/customers', postArrayCreateCustomer);
@@ -46,5 +50,8 @@ routerAPI.delete('/projects', deleteAProject);
 
 // route task
 routerAPI.post('/tasks', postCreateTaskAPI);
+routerAPI.get('/tasks', getAllTaskAPI);
+routerAPI.put('/tasks', putUpdateTaskAPI);
+routerAPI.delete('/tasks', deleteATaskAPI);
 //export qua server
 module.exports = routerAPI;
