@@ -10,7 +10,7 @@ const createProjectService = async (arr) => {
         }
         // them user vao du an
         if (arr.type === "ADD-USER") {
-            console.log('>> check data  ', arr);
+
             // lay project
             let myProject = await project.findById(arr.projectId).exec();// tim project bang id
 
@@ -29,8 +29,6 @@ const createProjectService = async (arr) => {
         }
         if (arr.type === "REMOVE-USERS") {
             let myProject1 = await project.findById(arr.projectId).exec();// tim project bang id
-
-
             // duyet qua arr cua phan nhap posman
             // Kiểm tra trùng lặp trong mảng usersInfor
             for (let i = 0; i < arr.userId.length; i++) {
@@ -41,6 +39,23 @@ const createProjectService = async (arr) => {
             }
             let newResult1 = await myProject1.save();
             return newResult1;
+        }
+        if (arr.type === "ADD-TASKS") {
+            // lay project
+            let myProject2 = await project.findById(arr.projectId).exec();// tim project bang id
+
+
+            // duyet qua arr cua phan nhap posman
+            // Kiểm tra trùng lặp trong mảng usersInfor
+            for (let i = 0; i < arr.taskId.length; i++) {
+                const taskIdToAdd = arr.taskId[i];
+                // Kiểm tra xem userIdToAdd đã tồn tại trong mảng usersInfor chưa
+                if (!myProject2.tasks.includes(taskIdToAdd)) {
+                    myProject2.tasks.push(taskIdToAdd);
+                }
+            }
+            let newResult2 = await myProject2.save();
+            return newResult2;
         }
     } catch (error) {
         console.log('>> check err', error);
@@ -56,7 +71,8 @@ const getProjects = async (limit, page, queryString) => {
             const { filter, skip } = aqp(queryString);
             delete filter.page;
             console.log('>> check filter', filter);
-            result = await project.find(filter).populate('usersInfor').skip(offset).limit(limit).exec();// exec giúp cho hàm chạy đúng thứ tự
+            result = await project.find(filter).populate('usersInfor').populate('tasks')
+                .skip(offset).limit(limit).exec();// exec giúp cho hàm chạy đúng thứ tự
         }
         else {
             result = await project.find({});

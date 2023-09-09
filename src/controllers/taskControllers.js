@@ -47,7 +47,7 @@ const getAllTaskAPI = async (req, res) => {
 
 const putUpdateTaskAPI = async (req, res) => {
     let { id, name, description, endDate } = req.body;
-    let result = await UpdateTaskAPI(id, name, description, endDate)
+    let result = await UpdateTaskAPI(req.body);
     if (result) {
         return res.status(200).json({
             EC: 0,
@@ -64,7 +64,6 @@ const putUpdateTaskAPI = async (req, res) => {
 
 const deleteATaskAPI = async (req, res) => {
     let id = req.body.id;
-    console.log('>> check id', id);
     let result = await deleteATaskService(id);
     if (result) {
         return res.status(200).json({

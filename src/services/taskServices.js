@@ -37,10 +37,12 @@ const getAllTasks = async (limit, page, queryString) => {
     }
 }
 
-const UpdateTaskAPI = async (id, name, description, endDate) => {
-    console.log('>> check id', id);
+const UpdateTaskAPI = async (data) => {
+
     try {
-        let result = await task.updateOne({ _id: id }, { name, description, endDate });
+        console.log('>> check data id', data.id);
+        //{...data} la sao chep toan bo data da co
+        let result = await task.updateOne({ _id: data.id }, { ...data });// js destructing
         return result;
     } catch (error) {
         console.log('>> check error', error);
